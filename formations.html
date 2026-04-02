@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formations — Le Labo Durable</title>
+    <meta name="description" content="Formations certifiées Qualiopi en chimie analytique durable, instrumentation GC/LC/MS, chémo-informatique. Le Labo Durable / Analytiss.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep:#0f3d4f;--primary:#1a6b7a;--primary-light:#2a8a9a;--tint:#e8f4f6;--tint-warm:#f0f7f4;
+            --accent:#d4a053;--accent-light:#e8c88a;--text:#1a2a2e;--text-mid:#4a5e63;--text-light:#7a8e93;
+            --white:#ffffff;--off-white:#f8fafb;--border:#d8e4e7;--radius:8px;--radius-lg:16px;
+            --shadow-sm:0 1px 3px rgba(15,61,79,0.08);--shadow-md:0 4px 20px rgba(15,61,79,0.1);
+            --shadow-lg:0 8px 40px rgba(15,61,79,0.12);--transition:0.3s cubic-bezier(0.4,0,0.2,1);
+        }
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        html{scroll-behavior:smooth;font-size:16px}
+        body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--text);background:var(--white);line-height:1.65;-webkit-font-smoothing:antialiased}
+
+        /* NAV */
+        .nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+        .nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:72px}
+        .nav-logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none;color:var(--deep);z-index:120}
+        .nav-logo-icon{width:40px;height:40px;background:var(--primary);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;color:white;font-family:'Outfit',sans-serif;font-size:1.1rem}
+        .nav-logo-text{font-weight:600;font-size:1.1rem}
+        .nav-links{display:flex;align-items:center;gap:0.25rem;list-style:none}
+        .nav-links a{text-decoration:none;color:var(--text-mid);font-size:0.9rem;font-weight:500;padding:0.5rem 1rem;border-radius:var(--radius);transition:color 0.2s ease,background 0.2s ease}
+        .nav-links a:hover,.nav-links a.active{color:var(--primary);background:var(--tint)}
+        .nav-cta{background:var(--primary)!important;color:var(--white)!important;padding:0.55rem 1.25rem!important}
+        .nav-cta:hover{background:var(--deep)!important;color:var(--white)!important}
+        .nav-toggle{display:none;background:none;border:none;cursor:pointer;width:44px;height:44px;z-index:120;position:relative;border-radius:var(--radius)}
+        .nav-toggle:hover{background:var(--tint)}
+        .nav-toggle-bar{display:block;width:20px;height:2px;background:var(--text);position:absolute;left:12px;transition:transform 0.35s ease,opacity 0.25s ease;border-radius:2px}
+        .nav-toggle-bar:nth-child(1){top:15px}
+        .nav-toggle-bar:nth-child(2){top:21px}
+        .nav-toggle-bar:nth-child(3){top:27px}
+        .nav-toggle.open .nav-toggle-bar:nth-child(1){transform:translateY(6px) rotate(45deg)}
+        .nav-toggle.open .nav-toggle-bar:nth-child(2){opacity:0;transform:scaleX(0)}
+        .nav-toggle.open .nav-toggle-bar:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+        /* PAGE HEADER */
+        .page-header{padding:10rem 2rem 5rem;background:var(--deep);position:relative;overflow:hidden}
+        .page-header::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+        .page-header::after{content:'';position:absolute;top:10%;right:-10%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(42,138,154,0.12) 0%,transparent 70%);pointer-events:none}
+        .page-header-inner{max-width:1200px;margin:0 auto;position:relative;z-index:1}
+        .page-header .section-label{color:var(--accent-light)}
+        .page-header .section-label::before{background:var(--accent)}
+        .page-header h1{font-family:'Outfit',sans-serif;font-size:clamp(2.2rem,4.5vw,3.2rem);font-weight:800;color:var(--white);line-height:1.15;margin-bottom:1rem}
+        .page-header p{font-size:1.05rem;color:rgba(255,255,255,0.65);max-width:620px;line-height:1.7}
+
+        /* SECTIONS */
+        .section{padding:6rem 2rem}
+        .section-inner{max-width:1200px;margin:0 auto}
+        .section-header{max-width:700px;margin-bottom:3rem}
+        .section-header.center{margin-left:auto;margin-right:auto;text-align:center}
+        .section-label{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--primary);margin-bottom:1rem}
+        .section-label::before{content:'';width:20px;height:2px;background:var(--primary);border-radius:1px}
+        h2{font-family:'Outfit',sans-serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:700;color:var(--deep);line-height:1.25;margin-bottom:1rem}
+        .section-desc{font-size:1.05rem;color:var(--text-mid);line-height:1.7}
+
+        .btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.85rem 1.75rem;border-radius:var(--radius);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.95rem;font-weight:600;text-decoration:none;transition:var(--transition);border:none;cursor:pointer}
+        .btn-accent{background:var(--primary);color:var(--white)}
+        .btn-accent:hover{background:var(--deep);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+
+        /* ─── WHY US — 4 cards ─── */
+        .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
+        .why-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.75rem;transition:var(--transition)}
+        .why-card:hover{box-shadow:var(--shadow-sm);transform:translateY(-2px)}
+        .why-icon{width:44px;height:44px;background:var(--tint);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:0.85rem;font-size:1.2rem}
+        .why-card h3{font-family:'Outfit',sans-serif;font-size:0.95rem;font-weight:700;color:var(--deep);margin-bottom:0.35rem}
+        .why-card p{font-size:0.82rem;color:var(--text-mid);line-height:1.55}
+
+        /* ─── CATEGORY FILTERS ─── */
+        .filters{display:flex;gap:0.5rem;margin-bottom:2rem;flex-wrap:wrap}
+        .filter-btn{padding:0.45rem 1rem;border-radius:100px;border:1.5px solid var(--border);background:var(--white);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.82rem;font-weight:600;color:var(--text-mid);cursor:pointer;transition:var(--transition)}
+        .filter-btn:hover{border-color:var(--primary-light);color:var(--primary)}
+        .filter-btn.active{background:var(--primary);color:var(--white);border-color:var(--primary)}
+
+        /* ─── FORMATION CARDS ─── */
+        .formations-list{display:flex;flex-direction:column;gap:1rem}
+
+        .formation-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:var(--transition)}
+        .formation-card:hover{box-shadow:var(--shadow-sm)}
+
+        .formation-trigger{width:100%;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.75rem;background:none;border:none;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;text-align:left;transition:background 0.2s ease;gap:1rem}
+        .formation-trigger:hover{background:var(--off-white)}
+
+        .formation-trigger-left{display:flex;align-items:center;gap:1rem;flex:1;min-width:0}
+        .formation-cat{font-size:1.4rem;flex-shrink:0}
+
+        .formation-title-block{flex:1;min-width:0}
+        .formation-title{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:700;color:var(--deep);margin-bottom:0.15rem}
+        .formation-subtitle{font-size:0.82rem;color:var(--text-light)}
+
+        .formation-meta{display:flex;gap:1.25rem;align-items:center;flex-shrink:0}
+        .formation-meta-item{font-size:0.78rem;color:var(--text-light);font-weight:500;display:flex;align-items:center;gap:0.3rem;white-space:nowrap}
+
+        .formation-satisfaction{background:var(--tint-warm);color:var(--primary);font-size:0.72rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:100px;white-space:nowrap}
+
+        .chevron{width:18px;height:18px;transition:transform 0.3s ease;flex-shrink:0;color:var(--text-light)}
+        .formation-card.open .chevron{transform:rotate(180deg)}
+
+        .formation-content{max-height:0;overflow:hidden;transition:max-height 0.4s ease}
+        .formation-content-inner{padding:0 1.75rem 1.75rem;border-top:1px solid var(--border);padding-top:1.5rem}
+
+        .formation-desc{font-size:0.9rem;color:var(--text-mid);line-height:1.7;margin-bottom:1.25rem}
+
+        .formation-objectives h4{font-family:'Outfit',sans-serif;font-size:0.88rem;font-weight:700;color:var(--deep);margin-bottom:0.6rem}
+        .formation-objectives ul{list-style:none;display:flex;flex-direction:column;gap:0.35rem;margin-bottom:1.25rem}
+        .formation-objectives li{font-size:0.85rem;color:var(--text-mid);padding-left:1.1rem;position:relative;line-height:1.55}
+        .formation-objectives li::before{content:'✓';position:absolute;left:0;color:var(--primary);font-size:0.75rem;font-weight:700}
+
+        .formation-details{display:flex;gap:2rem;flex-wrap:wrap;margin-bottom:1.25rem}
+        .formation-detail{display:flex;flex-direction:column;gap:0.1rem}
+        .formation-detail-label{font-size:0.72rem;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:0.04em}
+        .formation-detail-value{font-size:0.9rem;font-weight:600;color:var(--text)}
+
+        .formation-cta{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.85rem;font-weight:600;color:var(--primary);text-decoration:none;padding:0.5rem 1rem;border-radius:var(--radius);border:1.5px solid var(--primary);transition:var(--transition)}
+        .formation-cta:hover{background:var(--primary);color:var(--white)}
+
+        /* ─── LEGEND ─── */
+        .legend{display:flex;gap:1.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+        .legend-item{display:flex;align-items:center;gap:0.35rem;font-size:0.8rem;color:var(--text-mid);font-weight:500}
+
+        /* ─── CTA BAND ─── */
+        .cta-band{background:var(--deep);padding:4rem 2rem;text-align:center}
+        .cta-band h2{color:var(--white);margin-bottom:1rem}
+        .cta-band p{color:rgba(255,255,255,0.65);font-size:1.05rem;max-width:520px;margin:0 auto 2rem}
+
+        /* FOOTER */
+        .footer{background:var(--deep);color:rgba(255,255,255,0.65);padding:4rem 2rem 2rem}
+        .footer-inner{max-width:1200px;margin:0 auto}
+        .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,0.08)}
+        .footer-brand p{font-size:0.9rem;line-height:1.7;margin-top:1rem;max-width:280px}
+        .footer h4{color:var(--white);font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:1.25rem}
+        .footer-links{list-style:none;display:flex;flex-direction:column;gap:0.6rem}
+        .footer-links a{color:rgba(255,255,255,0.55);text-decoration:none;font-size:0.9rem;transition:var(--transition)}
+        .footer-links a:hover{color:var(--white)}
+        .footer-contact-item{display:flex;align-items:start;gap:0.6rem;font-size:0.9rem;margin-bottom:0.75rem}
+        .footer-contact-item .icon{margin-top:0.1rem;font-size:0.85rem;flex-shrink:0}
+        .footer-contact-item a{color:rgba(255,255,255,0.55);text-decoration:none;transition:var(--transition)}
+        .footer-contact-item a:hover{color:var(--white)}
+        .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:2rem;font-size:0.8rem;color:rgba(255,255,255,0.35)}
+        .footer-social{display:flex;gap:0.75rem}
+        .footer-social a{width:36px;height:36px;border-radius:var(--radius);background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);text-decoration:none;font-size:0.85rem;transition:var(--transition)}
+        .footer-social a:hover{background:rgba(255,255,255,0.12);color:var(--white)}
+
+        /* RESPONSIVE */
+        @media(max-width:900px){
+            .nav-links{position:fixed;top:72px;left:0;right:0;background:var(--white);flex-direction:column;align-items:stretch;gap:0;list-style:none;border-bottom:1px solid var(--border);box-shadow:var(--shadow-lg);transform:translateY(-110%);opacity:0;transition:transform 0.35s ease,opacity 0.3s ease;pointer-events:none;padding:0.75rem 1rem;z-index:105}
+            .nav-links.open{transform:translateY(0);opacity:1;pointer-events:auto}
+            .nav-links a{font-size:1rem;padding:0.85rem 1rem;border-radius:var(--radius);display:block}
+            .nav-links .nav-cta{text-align:center;margin-top:0.5rem}
+            .nav-toggle{display:block}
+            .why-grid{grid-template-columns:repeat(2,1fr)}
+            .formation-meta{display:none}
+            .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+        }
+        @media(max-width:600px){
+            .section{padding:4rem 1.25rem}
+            .page-header{padding:8rem 1.25rem 3rem}
+            .why-grid{grid-template-columns:1fr}
+            .formation-trigger{padding:1rem 1.25rem}
+            .formation-content-inner{padding:0 1.25rem 1.5rem;padding-top:1.25rem}
+            .formation-details{gap:1rem}
+            .footer-grid{grid-template-columns:1fr}
+            .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+        }
+
+        .fade-up{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease}
+        .fade-up.visible{opacity:1;transform:translateY(0)}
+        .stagger-1{transition-delay:0.05s}.stagger-2{transition-delay:0.1s}
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo"><div class="nav-logo-icon">L</div><span class="nav-logo-text">Le Labo Durable</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="services.html">Nos services</a></li>
+                <li><a href="acv.html">L'ACV</a></li>
+                <li><a href="equipe.html">Notre équipe</a></li>
+                <li><a href="formations.html" class="active">Formations</a></li>
+                <li><a href="consolab.html">Consolab</a></li>
+                <li><a href="contact.html" class="nav-cta">Nous contacter</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="page-header-inner">
+            <div class="section-label">Formations</div>
+            <h1>Former pour susciter l'implication</h1>
+            <p>Des sessions pratiques et théoriques à la pointe de la connaissance en chimie analytique durable, instrumentation et chémo-informatique. Adaptées à tous les profils, du néophyte à l'expert.</p>
+        </div>
+    </header>
+
+    <!-- POURQUOI NOUS -->
+    <section class="section" style="background:var(--off-white)">
+        <div class="section-inner">
+            <div class="section-header center fade-up">
+                <div class="section-label">Pourquoi nous</div>
+                <h2>Pourquoi faire appel à nous ?</h2>
+            </div>
+            <div class="why-grid fade-up">
+                <div class="why-card">
+                    <div class="why-icon">🎓</div>
+                    <h3>Expertise unique</h3>
+                    <p>Formateur·ices titulaires de doctorats avec plusieurs années d'expérience terrain.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">✓</div>
+                    <h3>Certifié Qualiopi</h3>
+                    <p>Certification qualité via Analytiss pour une meilleure accessibilité aux financements.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">📡</div>
+                    <h3>Contenus actualisés</h3>
+                    <p>Veille bibliographique continue pour vous proposer les dernières innovations.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">🧪</div>
+                    <h3>Laboratoire R&D</h3>
+                    <p>Un labo dédié à Brioude pour tester et développer les solutions présentées en formation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATALOGUE -->
+    <section class="section">
+        <div class="section-inner">
+            <div class="section-header fade-up">
+                <div class="section-label">Catalogue</div>
+                <h2>Notre offre de formations</h2>
+                <p class="section-desc">Toutes nos formations peuvent être adaptées aux personnes en situation de handicap. Formats : présentiel (Brioude ou dans vos locaux) ou distanciel.</p>
+            </div>
+
+            <div class="legend fade-up">
+                <div class="legend-item"><span>🌱</span> Durabilité</div>
+                <div class="legend-item"><span>⚙️</span> Instrumentation</div>
+                <div class="legend-item"><span>🖥️</span> Chémo-informatique</div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters fade-up">
+                <button class="filter-btn active" data-filter="all">Toutes</button>
+                <button class="filter-btn" data-filter="durabilite">🌱 Durabilité</button>
+                <button class="filter-btn" data-filter="instru">⚙️ Instrumentation</button>
+                <button class="filter-btn" data-filter="chemo">🖥️ Chémo-informatique</button>
+            </div>
+
+            <div class="formations-list fade-up">
+
+                <!-- 1 -->
+                <div class="formation-card" data-cat="durabilite">
+                    <button class="formation-trigger">
+                        <div class="formation-trigger-left">
+                            <span class="formation-cat">🌱</span>
+                            <div class="formation-title-block">
+                                <div class="formation-title">Le laboratoire face aux défis environnementaux : introduction & mobilisation</div>
+                                <div class="formation-subtitle">Sensibilisation + définition d'objectifs + plan d'action</div>
+                            </div>
+                        </div>
+                        <div class="formation-meta">
+                            <span class="formation-meta-item">📅 2 jours</span>
+                            <span class="formation-satisfaction">96 %</span>
+                        </div>
+                        <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+                    </button>
+                    <div class="formation-content"><div class="formation-content-inner">
+                        <p class="formation-desc">Cette formation accompagne le personnel de laboratoire dans la prise de conscience des défis environnementaux actuels. Elle permet de mieux connaître les ordres de grandeur de consommations et d'impacts GES, tout en identifiant les leviers d'action spécifiques au laboratoire.</p>
+                        <div class="formation-objectives">
+                            <h4>Objectifs</h4>
+                            <ul>
+                                <li>Sensibiliser les personnels en responsabilité à la nécessité de définir des objectifs environnementaux</li>
+                                <li>Accompagner dans la définition d'objectifs concrets</li>
+                                <li>S'approprier les ordres de grandeur au laboratoire</li>
+                                <li>Connaître les labels et référentiels normatifs</li>
+                                <li>Favoriser les stratégies adaptées au contexte de son entreprise</li>
+                            </ul>
+                        </div>
+                        <div class="formation-details">
+                            <div class="formation-detail"><span class="formation-detail-label">Public</span><span class="formation-detail-value">Tout public</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Prérequis</span><span class="formation-detail-value">Aucun</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Durée</span><span class="formation-detail-value">2 journées</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Délai d'accès</span><span class="formation-detail-value">~2 mois</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Tarif</span><span class="formation-detail-value">Sur demande</span></div>
+                        </div>
+                        <a href="mailto:bastien.raccary@lelabodurable.com?subject=Demande d'infos — Formation introduction et mobilisation" class="formation-cta">Demander + d'infos →</a>
+                    </div></div>
+                </div>
+
+                <!-- 2 -->
+                <div class="formation-card" data-cat="durabilite">
+                    <button class="formation-trigger">
+                        <div class="formation-trigger-left">
+                            <span class="formation-cat">🌱</span>
+                            <div class="formation-title-block">
+                                <div class="formation-title">Le laboratoire face aux défis environnementaux : introduction à la chimie analytique durable</div>
+                                <div class="formation-subtitle">Ordres de grandeur, acteurs, outils et choix durables</div>
+                            </div>
+                        </div>
+                        <div class="formation-meta">
+                            <span class="formation-meta-item">📅 1 jour</span>
+                            <span class="formation-satisfaction">96 %</span>
+                        </div>
+                        <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+                    </button>
+                    <div class="formation-content"><div class="formation-content-inner">
+                        <p class="formation-desc">Prise de conscience des défis environnementaux et identification des leviers d'action au laboratoire. Approche pratique et contextuelle.</p>
+                        <div class="formation-objectives">
+                            <h4>Objectifs</h4>
+                            <ul>
+                                <li>Sensibiliser le personnel à la nécessité de revisiter les pratiques</li>
+                                <li>S'approprier les ordres de grandeur au laboratoire</li>
+                                <li>Connaître les acteurs et outils de la chimie analytique durable</li>
+                                <li>Favoriser les choix durables adaptés à son contexte</li>
+                            </ul>
+                        </div>
+                        <div class="formation-details">
+                            <div class="formation-detail"><span class="formation-detail-label">Public</span><span class="formation-detail-value">Tout public</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Prérequis</span><span class="formation-detail-value">Aucun</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Durée</span><span class="formation-detail-value">1 journée</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Délai d'accès</span><span class="formation-detail-value">~2 mois</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Tarif</span><span class="formation-detail-value">Sur demande</span></div>
+                        </div>
+                        <a href="mailto:bastien.raccary@lelabodurable.com?subject=Demande d'infos — Formation chimie analytique durable" class="formation-cta">Demander + d'infos →</a>
+                    </div></div>
+                </div>
+
+                <!-- 3 -->
+                <div class="formation-card" data-cat="durabilite">
+                    <button class="formation-trigger">
+                        <div class="formation-trigger-left">
+                            <span class="formation-cat">🌱</span>
+                            <div class="formation-title-block">
+                                <div class="formation-title">Sciences et environnement : introduction aux ordres de grandeur</div>
+                                <div class="formation-subtitle">Ordres de grandeur, labels et référentiels normatifs</div>
+                            </div>
+                        </div>
+                        <div class="formation-meta">
+                            <span class="formation-meta-item">📅 1 jour</span>
+                        </div>
+                        <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+                    </button>
+                    <div class="formation-content"><div class="formation-content-inner">
+                        <p class="formation-desc">Prise de conscience des défis environnementaux et appropriation des ordres de grandeur de consommations et d'impacts GES au laboratoire.</p>
+                        <div class="formation-objectives">
+                            <h4>Objectifs</h4>
+                            <ul>
+                                <li>Sensibiliser à la nécessité de définir des objectifs environnementaux</li>
+                                <li>Accompagner dans la définition d'objectifs</li>
+                                <li>S'approprier les ordres de grandeur</li>
+                                <li>Connaître les labels et référentiels normatifs</li>
+                            </ul>
+                        </div>
+                        <div class="formation-details">
+                            <div class="formation-detail"><span class="formation-detail-label">Public</span><span class="formation-detail-value">Tout public</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Prérequis</span><span class="formation-detail-value">Aucun</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Durée</span><span class="formation-detail-value">1 journée</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Tarif</span><span class="formation-detail-value">Sur demande</span></div>
+                        </div>
+                        <a href="mailto:bastien.raccary@lelabodurable.com?subject=Demande d'infos — Formation ordres de grandeur" class="formation-cta">Demander + d'infos →</a>
+                    </div></div>
+                </div>
+
+                <!-- 4 -->
+                <div class="formation-card" data-cat="durabilite">
+                    <button class="formation-trigger">
+                        <div class="formation-trigger-left">
+                            <span class="formation-cat">🌱</span>
+                            <div class="formation-title-block">
+                                <div class="formation-title">Savoir faire son bilan GES et mieux décrypter le quotidien</div>
+                                <div class="formation-subtitle">Bilan carbone personnel → transposition professionnelle</div>
+                            </div>
+                        </div>
+                        <div class="formation-meta">
+                            <span class="formation-meta-item">📅 ½ journée</span>
+                        </div>
+                        <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+                    </button>
+                    <div class="formation-content"><div class="formation-content-inner">
+                        <p class="formation-desc">Introduction pratique à la réalisation et à l'interprétation des bilans GES. Comprendre son impact personnel pour mieux agir en contexte professionnel.</p>
+                        <div class="formation-objectives">
+                            <h4>Objectifs</h4>
+                            <ul>
+                                <li>Sensibiliser à la pertinence de définir des objectifs GES</li>
+                                <li>Accompagner dans la définition d'objectifs</li>
+                                <li>S'approprier les ordres de grandeur</li>
+                                <li>Connaître les labels et référentiels</li>
+                            </ul>
+                        </div>
+                        <div class="formation-details">
+                            <div class="formation-detail"><span class="formation-detail-label">Public</span><span class="formation-detail-value">Tout public</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Prérequis</span><span class="formation-detail-value">Aucun</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Durée</span><span class="formation-detail-value">½ journée</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Tarif</span><span class="formation-detail-value">Sur demande</span></div>
+                        </div>
+                        <a href="mailto:bastien.raccary@lelabodurable.com?subject=Demande d'infos — Formation bilan GES" class="formation-cta">Demander + d'infos →</a>
+                    </div></div>
+                </div>
+
+                <!-- 5 -->
+                <div class="formation-card" data-cat="instru">
+                    <button class="formation-trigger">
+                        <div class="formation-trigger-left">
+                            <span class="formation-cat">⚙️</span>
+                            <div class="formation-title-block">
+                                <div class="formation-title">Gérer et maintenir sa GC de façon plus efficiente et durable</div>
+                                <div class="formation-subtitle">Maintenance 1er niveau GC Agilent — S/SL, FID, colonne capillaire</div>
+                            </div>
+                        </div>
+                        <div class="formation-meta">
+                            <span class="formation-meta-item">📅 1 jour</span>
+                        </div>
+                        <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+                    </button>
+                    <div class="formation-content"><div class="formation-content-inner">
+                        <p class="formation-desc">Maîtriser la maintenance de son GC Agilent pour gagner en indépendance de façon durable.</p>
+                        <div class="formation-objectives">
+                            <h4>Objectifs</h4>
+                            <ul>
+                                <li>Planifier l'entretien courant d'un GC Agilent avec injecteur S/SL et détecteur FID</li>
+                                <li>Identifier les éléments du système</li>
+                                <li>Assurer leur maintenance de 1er niveau</li>
+                                <li>Installer une colonne capillaire entre S/SL et FID</li>
+                            </ul>
+                        </div>
+                        <div class="formation-details">
+                            <div class="formation-detail"><span class="formation-detail-label">Public</span><span class="formation-detail-value">Personnel labo</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Prérequis</span><span class="formation-detail-value">Aucun</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Durée</span><span class="formation-detail-value">1 journée</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Tarif</span><span class="formation-detail-value">Sur demande</span></div>
+                        </div>
+                        <a href="mailto:bastien.raccary@lelabodurable.com?subject=Demande d'infos — Formation maintenance GC" class="formation-cta">Demander + d'infos →</a>
+                    </div></div>
+                </div>
+
+                <!-- 6 -->
+                <div class="formation-card" data-cat="instru">
+                    <button class="formation-trigger">
+                        <div class="formation-trigger-left">
+                            <span class="formation-cat">⚙️</span>
+                            <div class="formation-title-block">
+                                <div class="formation-title">Gérer et maintenir sa LC de façon plus efficiente et durable</div>
+                                <div class="formation-subtitle">Maintenance 1er niveau HPLC Agilent — pompe, injecteur, four, UV</div>
+                            </div>
+                        </div>
+                        <div class="formation-meta">
+                            <span class="formation-meta-item">📅 1 jour</span>
+                        </div>
+                        <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+                    </button>
+                    <div class="formation-content"><div class="formation-content-inner">
+                        <p class="formation-desc">Maîtriser la maintenance de son HPLC Agilent pour gagner en autonomie.</p>
+                        <div class="formation-objectives">
+                            <h4>Objectifs</h4>
+                            <ul>
+                                <li>Planifier l'entretien courant d'une HPLC Agilent</li>
+                                <li>Identifier les éléments de chaque module LC</li>
+                                <li>Assurer leur maintenance de 1er niveau</li>
+                                <li>Installer et conditionner une colonne LC</li>
+                            </ul>
+                        </div>
+                        <div class="formation-details">
+                            <div class="formation-detail"><span class="formation-detail-label">Public</span><span class="formation-detail-value">Personnel labo</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Prérequis</span><span class="formation-detail-value">Aucun</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Durée</span><span class="formation-detail-value">1 journée</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Tarif</span><span class="formation-detail-value">Sur demande</span></div>
+                        </div>
+                        <a href="mailto:bastien.raccary@lelabodurable.com?subject=Demande d'infos — Formation maintenance LC" class="formation-cta">Demander + d'infos →</a>
+                    </div></div>
+                </div>
+
+                <!-- 7 — MS -->
+                <div class="formation-card" data-cat="instru">
+                    <button class="formation-trigger">
+                        <div class="formation-trigger-left">
+                            <span class="formation-cat">⚙️</span>
+                            <div class="formation-title-block">
+                                <div class="formation-title">Gérer et maintenir sa MS de façon plus efficiente et durable</div>
+                                <div class="formation-subtitle">Maintenance 1er niveau MSD Agilent — source EI, interface</div>
+                            </div>
+                        </div>
+                        <div class="formation-meta">
+                            <span class="formation-meta-item">📅 1 jour</span>
+                        </div>
+                        <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+                    </button>
+                    <div class="formation-content"><div class="formation-content-inner">
+                        <p class="formation-desc">Maîtriser la maintenance de son MSD Agilent et vérifier son bon fonctionnement.</p>
+                        <div class="formation-objectives">
+                            <h4>Objectifs</h4>
+                            <ul>
+                                <li>Planifier l'entretien courant d'un MSD Agilent avec source EI</li>
+                                <li>Identifier les éléments du MSD</li>
+                                <li>Assurer leur maintenance de 1er niveau</li>
+                                <li>Installer une colonne capillaire sur l'interface MSD</li>
+                                <li>Vérifier le bon fonctionnement du MSD</li>
+                            </ul>
+                        </div>
+                        <div class="formation-details">
+                            <div class="formation-detail"><span class="formation-detail-label">Public</span><span class="formation-detail-value">Personnel labo</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Prérequis</span><span class="formation-detail-value">Aucun</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Durée</span><span class="formation-detail-value">1 journée</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Tarif</span><span class="formation-detail-value">Sur demande</span></div>
+                        </div>
+                        <a href="mailto:bastien.raccary@lelabodurable.com?subject=Demande d'infos — Formation maintenance MS" class="formation-cta">Demander + d'infos →</a>
+                    </div></div>
+                </div>
+
+                <!-- 8 — Chémo -->
+                <div class="formation-card" data-cat="chemo">
+                    <button class="formation-trigger">
+                        <div class="formation-trigger-left">
+                            <span class="formation-cat">🖥️</span>
+                            <div class="formation-title-block">
+                                <div class="formation-title">Introduction au traitement des données GC-MS/FID</div>
+                                <div class="formation-subtitle">Modes d'acquisition, stratégies de traitement, cas concrets</div>
+                            </div>
+                        </div>
+                        <div class="formation-meta">
+                            <span class="formation-meta-item">📅 2 jours</span>
+                            <span class="formation-satisfaction">92,5 %</span>
+                        </div>
+                        <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+                    </button>
+                    <div class="formation-content"><div class="formation-content-inner">
+                        <p class="formation-desc">Comprendre les modes d'acquisition des données chromatographiques et leur contenu. Explorer les différentes approches de traitement et les appliquer sur des cas concrets.</p>
+                        <div class="formation-objectives">
+                            <h4>Objectifs</h4>
+                            <ul>
+                                <li>Sensibiliser aux modes d'acquisition des données chromatographiques</li>
+                                <li>Présenter les différentes façons de traiter les données et leurs intérêts</li>
+                                <li>Appliquer des stratégies efficaces sur des cas concrets</li>
+                            </ul>
+                        </div>
+                        <div class="formation-details">
+                            <div class="formation-detail"><span class="formation-detail-label">Public</span><span class="formation-detail-value">Personnel labo</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Prérequis</span><span class="formation-detail-value">Aucun</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Durée</span><span class="formation-detail-value">2 journées</span></div>
+                            <div class="formation-detail"><span class="formation-detail-label">Tarif</span><span class="formation-detail-value">Sur demande</span></div>
+                        </div>
+                        <a href="mailto:bastien.raccary@lelabodurable.com?subject=Demande d'infos — Formation traitement données GC-MS" class="formation-cta">Demander + d'infos →</a>
+                    </div></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-band">
+        <h2>Besoin d'une formation sur mesure ?</h2>
+        <p>Nous adaptons nos sessions à votre contexte, vos instruments et vos objectifs. Parlons-en.</p>
+        <a href="contact.html" class="btn" style="background:var(--white);color:var(--deep)">Nous contacter →</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="nav-logo" style="margin-bottom:0.5rem"><div class="nav-logo-icon">L</div><span class="nav-logo-text" style="color:white">Le Labo Durable</span></a>
+                    <p>Accompagner les laboratoires d'analyses dans leur transition environnementale en alliant rigueur scientifique et pragmatisme.</p>
+                </div>
+                <div>
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="services.html">Vue d'ensemble</a></li>
+                        <li><a href="acv.html">Analyse du cycle de vie</a></li>
+                        <li><a href="formations.html">Formations</a></li>
+                        <li><a href="consolab.html">Consolab</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Entreprise</h4>
+                    <ul class="footer-links">
+                        <li><a href="equipe.html">Notre équipe</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Nous contacter</h4>
+                    <div class="footer-contact-item"><span class="icon">📍</span><span>34 rue du Vallat, 43100 Brioude</span></div>
+                    <div class="footer-contact-item"><span class="icon">✉️</span><a href="mailto:contact@lelabodurable.com">contact@lelabodurable.com</a></div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2025 Le Labo Durable. Tous droits réservés.</span>
+                <div class="footer-social"><a href="https://www.linkedin.com/company/le-labo-durable/" target="_blank" rel="noopener" aria-label="LinkedIn">in</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile nav
+        const toggle=document.getElementById('navToggle'),links=document.getElementById('navLinks');
+        toggle.addEventListener('click',()=>{toggle.classList.toggle('open');links.classList.toggle('open')});
+        links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{toggle.classList.remove('open');links.classList.remove('open')}));
+        window.addEventListener('resize',()=>{if(window.innerWidth>900){toggle.classList.remove('open');links.classList.remove('open')}});
+
+        // Formation accordion
+        document.querySelectorAll('.formation-trigger').forEach(btn=>{
+            btn.addEventListener('click',()=>{
+                const card=btn.closest('.formation-card');
+                const content=card.querySelector('.formation-content');
+                const isOpen=card.classList.contains('open');
+                // Close others
+                document.querySelectorAll('.formation-card.open').forEach(c=>{
+                    if(c!==card){c.classList.remove('open');c.querySelector('.formation-content').style.maxHeight=null}
+                });
+                if(isOpen){card.classList.remove('open');content.style.maxHeight=null}
+                else{card.classList.add('open');content.style.maxHeight=content.scrollHeight+'px'}
+            });
+        });
+
+        // Category filters
+        document.querySelectorAll('.filter-btn').forEach(btn=>{
+            btn.addEventListener('click',()=>{
+                document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter=btn.dataset.filter;
+                document.querySelectorAll('.formation-card').forEach(card=>{
+                    if(filter==='all'||card.dataset.cat===filter){
+                        card.style.display=''
+                    }else{
+                        card.style.display='none';
+                        card.classList.remove('open');
+                        card.querySelector('.formation-content').style.maxHeight=null
+                    }
+                });
+            });
+        });
+
+        // Scroll animations
+        const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+        document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+    </script>
+</body>
+</html>
