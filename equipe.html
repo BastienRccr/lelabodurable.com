@@ -51,8 +51,19 @@
         .page-header h1{font-family:'Outfit',sans-serif;font-size:clamp(2.4rem,5vw,3.5rem);font-weight:800;color:var(--white);line-height:1.1;margin-bottom:1rem}
         .page-header p{font-size:1.1rem;color:rgba(255,255,255,0.65);max-width:500px;line-height:1.7}
         .header-stat{text-align:right;flex-shrink:0}
-        .header-stat-number{font-family:'Outfit',sans-serif;font-size:5rem;font-weight:800;color:var(--accent-light);line-height:1;opacity:0.25}
-        .header-stat-label{font-size:0.85rem;color:rgba(255,255,255,0.4);margin-top:0.25rem}
+        .header-stat-number{font-family:'Outfit',sans-serif;font-size:5rem;font-weight:800;color:var(--accent-light);line-height:1;opacity:0.6}
+        .header-stat-label{font-size:0.9rem;color:rgba(255,255,255,0.6);margin-top:0.25rem}
+
+        /* Hero bg */
+        .page-header .hero-bg{position:absolute;inset:0;z-index:0}
+        .page-header .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 40%;opacity:0.2}
+        .page-header .hero-overlay{position:absolute;inset:0;background:linear-gradient(165deg,rgba(15,61,79,0.85) 0%,rgba(26,107,122,0.7) 100%);z-index:0}
+
+        /* Team filters */
+        .team-filters{display:flex;gap:0.5rem;margin-bottom:2rem;flex-wrap:wrap}
+        .team-filter-btn{padding:0.45rem 1rem;border-radius:100px;border:1.5px solid var(--border);background:var(--white);font-family:'Plus Jakarta Sans',sans-serif;font-size:0.82rem;font-weight:600;color:var(--text-mid);cursor:pointer;transition:var(--transition)}
+        .team-filter-btn:hover{border-color:var(--primary-light);color:var(--primary)}
+        .team-filter-btn.active{background:var(--primary);color:var(--white);border-color:var(--primary)}
 
         /* SECTIONS */
         .section{padding:6rem 2rem}
@@ -177,6 +188,9 @@
     </nav>
 
     <header class="page-header">
+    <header class="page-header">
+        <div class="hero-bg"><img src="assets/photos/hero-accueil.jpg" alt="" loading="eager"></div>
+        <div class="hero-overlay"></div>
         <div class="page-header-inner">
             <div>
                 <div class="section-label">Notre équipe</div>
@@ -192,10 +206,17 @@
 
     <section class="section">
         <div class="section-inner">
+            <!-- Filters -->
+            <div class="team-filters fade-up">
+                <button class="team-filter-btn active" data-filter="all">Toute l'équipe</button>
+                <button class="team-filter-btn" data-filter="instru">🔬 Instrumentation</button>
+                <button class="team-filter-btn" data-filter="dura">🌿 Durabilité</button>
+                <button class="team-filter-btn" data-filter="chemo">💻 Chémo-info</button>
+            </div>
             <div class="team-grid">
 
                 <!-- Christophe Pérès -->
-                <div class="team-card fade-up stagger-1">
+                <div class="team-card fade-up stagger-1" data-cat="instru">
                     <div class="team-photo">
                         <span class="pole-badge">🔬 Instrumentation</span>
                         <img src="assets/team/christophe-peres.png" alt="Christophe Pérès">
@@ -224,7 +245,7 @@
                 </div>
 
                 <!-- Bastien Raccary -->
-                <div class="team-card fade-up stagger-2">
+                <div class="team-card fade-up stagger-2" data-cat="dura">
                     <div class="team-photo">
                         <span class="pole-badge">🌿 Durabilité</span>
                         <img src="assets/team/bastien-raccary.png" alt="Bastien Raccary">
@@ -253,7 +274,7 @@
                 </div>
 
                 <!-- Clément Truan -->
-                <div class="team-card fade-up stagger-3">
+                <div class="team-card fade-up stagger-3" data-cat="chemo">
                     <div class="team-photo">
                         <span class="pole-badge">💻 Chémo-info</span>
                         <img src="assets/team/clement-truan.png" alt="Clément Truan">
@@ -282,7 +303,7 @@
                 </div>
 
                 <!-- Xavier Rouessac -->
-                <div class="team-card fade-up stagger-1">
+                <div class="team-card fade-up stagger-1" data-cat="instru">
                     <div class="team-photo">
                         <span class="pole-badge">🔬 Support</span>
                         <img src="assets/team/xavier-rouessac.png" alt="Xavier Rouessac">
@@ -311,7 +332,7 @@
                 </div>
 
                 <!-- Thomas Vandewattyne -->
-                <div class="team-card fade-up stagger-2">
+                <div class="team-card fade-up stagger-2" data-cat="chemo">
                     <div class="team-photo">
                         <span class="pole-badge">💻 Chémo-info</span>
                         <img src="assets/team/thomas-vandewattyne.png" alt="Thomas Vandewattyne">
@@ -428,6 +449,25 @@
                     card.classList.add('open');bio.style.maxHeight=bio.scrollHeight+'px';
                     btn.childNodes[0].textContent='Masquer ';
                 }
+            });
+        });
+
+        // Team filters
+        document.querySelectorAll('.team-filter-btn').forEach(btn=>{
+            btn.addEventListener('click',()=>{
+                document.querySelectorAll('.team-filter-btn').forEach(b=>b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter=btn.dataset.filter;
+                document.querySelectorAll('.team-card').forEach(card=>{
+                    if(filter==='all'||card.dataset.cat===filter){
+                        card.style.display='';
+                    }else{
+                        card.style.display='none';
+                        card.classList.remove('open');
+                        const bio=card.querySelector('.team-bio');
+                        if(bio) bio.style.maxHeight=null;
+                    }
+                });
             });
         });
 
