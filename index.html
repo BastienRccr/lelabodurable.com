@@ -129,6 +129,31 @@
         .cert-item{display:flex;align-items:center;gap:0.6rem;font-size:0.85rem;color:var(--text-mid);font-weight:500}
         .cert-badge{width:36px;height:36px;background:var(--tint);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0}
 
+        /* ─── DUAL APPROACH (inside-out / outside-in) ─── */
+        .dual{background:var(--deep);color:var(--white)}
+        .dual .section-label{color:var(--accent-light)}
+        .dual .section-label::before{background:var(--accent)}
+        .dual h2{color:var(--white)}
+        .dual-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+        .dual-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-lg);padding:2rem;transition:var(--transition)}
+        .dual-card:hover{background:rgba(255,255,255,0.07)}
+        .dual-card h3{font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--white);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem}
+        .dual-card .dual-direction{font-size:0.7rem;font-weight:600;background:rgba(212,160,83,0.2);color:var(--accent-light);padding:0.2rem 0.6rem;border-radius:100px;text-transform:uppercase;letter-spacing:0.04em}
+        .dual-card p{font-size:0.9rem;color:rgba(255,255,255,0.6);line-height:1.65;margin-bottom:0.75rem}
+        .dual-examples{display:flex;flex-direction:column;gap:0.4rem}
+        .dual-example{display:flex;align-items:start;gap:0.5rem;font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.5}
+        .dual-example span{color:var(--accent-light);flex-shrink:0}
+        .dual-visual{display:flex;justify-content:center;margin-bottom:2.5rem}
+        .dual-visual svg text{font-family:'Outfit',sans-serif}
+
+        /* ─── PIE CHART for bilan ─── */
+        .bilan-charts{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
+        .bilan-pie{display:flex;flex-direction:column;align-items:center;gap:1rem}
+        .bilan-pie svg{width:200px;height:200px}
+        .bilan-pie-legend{display:flex;flex-direction:column;gap:0.35rem}
+        .bilan-pie-item{display:flex;align-items:center;gap:0.5rem;font-size:0.8rem;color:var(--text-mid)}
+        .bilan-pie-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
         /* ─── ACCORDION ─── */
         .accordion{border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;background:var(--white)}
         .accordion-item{border-bottom:1px solid var(--border)}
@@ -258,6 +283,8 @@
             .about-grid{grid-template-columns:1fr;gap:2rem}
             .values-grid{grid-template-columns:repeat(2,1fr)}
             .services-grid{grid-template-columns:1fr}
+            .dual-grid{grid-template-columns:1fr}
+            .bilan-charts{grid-template-columns:1fr}
             .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
             .cta-box{padding:3rem 2rem}
             .bilan-summary{flex-direction:column;text-align:center;gap:1rem}
@@ -353,7 +380,7 @@
                         <p>Embarquer les structures scientifiques dans la lutte contre la crise environnementale et les accompagner afin de répondre aux attentes de la société en termes d'engagements et d'actes.</p>
                     </div>
                     <div class="about-quote">
-                        <p>« S'engager est le meilleur moyen de faire évoluer son activité »</p>
+                        <p>«&nbsp;S'engager est le meilleur moyen de faire évoluer son&nbsp;activité&nbsp;»</p>
                         <cite>Christophe Pérès, fondateur</cite>
                     </div>
                 </div>
@@ -457,15 +484,74 @@
         </div>
     </section>
 
-    <!-- ENGAGEMENTS — ACCORDÉON DARK -->
-    <section class="section engagements">
+    <!-- DOUBLE APPROCHE : IMPACTS + RÉSILIENCE -->
+    <section class="section dual">
+        <div class="section-inner">
+            <div class="section-header center fade-up">
+                <div class="section-label">Notre vision</div>
+                <h2>Les deux faces d'une même pièce</h2>
+                <p class="section-desc" style="color:rgba(255,255,255,0.6)">Nous abordons la durabilité des laboratoires sous deux angles complémentaires : réduire ce qui sort, anticiper ce qui entre.</p>
+            </div>
+
+            <!-- SVG lab-centric diagram — simplified -->
+            <div class="dual-visual fade-up">
+                <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;width:100%">
+                    <defs>
+                        <marker id="dualArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto" fill="var(--accent-light)">
+                            <path d="M 0 2 L 10 5 L 0 8 z"/>
+                        </marker>
+                    </defs>
+
+                    <!-- Center: Laboratoire -->
+                    <rect x="210" y="40" width="180" height="120" rx="16" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+                    <text x="300" y="90" text-anchor="middle" font-family="Outfit,sans-serif" font-size="15" font-weight="700" fill="white">🧪 Laboratoire</text>
+                    <text x="300" y="112" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="9.5" fill="rgba(255,255,255,0.4)">Votre structure scientifique</text>
+
+                    <!-- Left: Inside → Out -->
+                    <path d="M208,75 L95,50" stroke="var(--accent-light)" stroke-width="2" fill="none" marker-end="url(#dualArrow)"/>
+                    <path d="M208,130 L95,155" stroke="var(--accent-light)" stroke-width="2" fill="none" marker-end="url(#dualArrow)"/>
+                    <text x="75" y="38" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11.5" font-weight="700" fill="white">Impacts</text>
+                    <text x="75" y="52" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="9" fill="rgba(255,255,255,0.4)">Énergie · Solvants · Déchets</text>
+                    <text x="75" y="156" text-anchor="middle" font-family="Outfit,sans-serif" font-size="9" font-weight="600" fill="#e8c88a" letter-spacing="0.05em">INSIDE → OUT</text>
+                    <text x="75" y="172" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.25)">RÉDUIRE</text>
+
+                    <!-- Right: Outside → In -->
+                    <path d="M505,50 L393,75" stroke="var(--accent-light)" stroke-width="2" fill="none" marker-end="url(#dualArrow)"/>
+                    <path d="M505,155 L393,130" stroke="var(--accent-light)" stroke-width="2" fill="none" marker-end="url(#dualArrow)"/>
+                    <text x="525" y="38" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11.5" font-weight="700" fill="white">Risques</text>
+                    <text x="525" y="52" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="9" fill="rgba(255,255,255,0.4)">Hélium · Solvants · Électricité</text>
+                    <text x="525" y="156" text-anchor="middle" font-family="Outfit,sans-serif" font-size="9" font-weight="600" fill="#e8c88a" letter-spacing="0.05em">OUTSIDE → IN</text>
+                    <text x="525" y="172" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.25)">ANTICIPER</text>
+                </svg>
+            </div>
+
+            <div class="dual-grid fade-up">
+                <div class="dual-card">
+                    <h3>🌿 Réduire les impacts <span class="dual-direction">Inside → Out</span></h3>
+                    <p>Le laboratoire génère des impacts environnementaux à travers sa consommation d'énergie, de solvants, de gaz et sa production de déchets. Grâce à nos outils — ACV, bilans GES, éco-conception — nous mesurons, comprenons et réduisons ces impacts de manière ciblée et chiffrée.</p>
+                </div>
+                <div class="dual-card">
+                    <h3>🛡️ Anticiper les risques <span class="dual-direction">Outside → In</span></h3>
+                    <p>Le monde extérieur fait peser des risques croissants sur le laboratoire : risque de pénurie d'hélium suite à l'incident de Ras Laffan, risque de tensions sur l'acétonitrile, risque de rupture de composants électroniques, risque de coupures d'électricité. Identifier et anticiper ces vulnérabilités, c'est garantir la continuité de votre activité.</p>
+                    <div class="dual-examples">
+                        <div class="dual-example"><span>→</span> Risque hélium : impact direct sur les GC-MS, ICP-MS et RMN</div>
+                        <div class="dual-example"><span>→</span> Risque acétonitrile : dépendance critique en HPLC</div>
+                        <div class="dual-example"><span>→</span> Risque composants électroniques : délais allongés</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ENGAGEMENTS -->
+    <section class="section" style="background:var(--off-white);border-top:3px solid var(--primary)">
         <div class="section-inner">
             <div class="section-header center fade-up">
                 <div class="section-label">Nos engagements</div>
                 <h2>Des pratiques engagées au quotidien</h2>
                 <p class="section-desc">Notre politique environnementale structure nos actions autour de 3 axes et 6 engagements concrets.</p>
             </div>
-            <div class="accordion accordion-dark fade-up">
+            <div class="accordion fade-up">
                 <div class="accordion-item">
                     <button class="accordion-trigger"><div class="accordion-trigger-left"><div class="accordion-trigger-icon">🚆</div><div><h3>Transports bas carbone</h3></div></div><svg class="accordion-chevron" viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg></button>
                     <div class="accordion-content"><div class="accordion-content-inner"><p>Priorisation train et vélo, regroupement des RDV par zone géographique, visioconférence systématique. 61 % de nos km parcourus en train en 2025.</p></div></div>
@@ -515,15 +601,44 @@
                 </button>
                 <div class="bilan-detail" id="bilanDetail">
                     <div class="bilan-detail-inner">
-                        <div class="bilan-breakdown">
-                            <div class="bilan-bar-item"><div class="bilan-bar-label">Voiture</div><div class="bilan-bar-track"><div class="bilan-bar-fill transport" style="width:61%"></div></div><div class="bilan-bar-value">3,87 tCO₂e</div></div>
-                            <div class="bilan-bar-item"><div class="bilan-bar-label">Avion</div><div class="bilan-bar-track"><div class="bilan-bar-fill transport" style="width:20.5%"></div></div><div class="bilan-bar-value">1,30 tCO₂e</div></div>
-                            <div class="bilan-bar-item"><div class="bilan-bar-label">Achats</div><div class="bilan-bar-track"><div class="bilan-bar-fill achats" style="width:6.2%"></div></div><div class="bilan-bar-value">0,39 tCO₂e</div></div>
-                            <div class="bilan-bar-item"><div class="bilan-bar-label">Électricité</div><div class="bilan-bar-track"><div class="bilan-bar-fill elec" style="width:4.3%"></div></div><div class="bilan-bar-value">0,27 tCO₂e</div></div>
-                            <div class="bilan-bar-item"><div class="bilan-bar-label">Train</div><div class="bilan-bar-track"><div class="bilan-bar-fill elec" style="width:4.1%"></div></div><div class="bilan-bar-value">0,26 tCO₂e</div></div>
-                            <div class="bilan-bar-item"><div class="bilan-bar-label">Télétravail</div><div class="bilan-bar-track"><div class="bilan-bar-fill teletravail" style="width:3.9%"></div></div><div class="bilan-bar-value">0,25 tCO₂e</div></div>
+                        <div class="bilan-charts">
+                            <!-- Bar chart: emissions -->
+                            <div>
+                                <h3 style="font-family:'Outfit',sans-serif;font-size:0.95rem;font-weight:700;color:var(--deep);margin-bottom:1rem">Émissions par poste (tCO₂e)</h3>
+                                <div class="bilan-breakdown">
+                                    <div class="bilan-bar-item"><div class="bilan-bar-label">Voiture</div><div class="bilan-bar-track"><div class="bilan-bar-fill transport" style="width:61%"></div></div><div class="bilan-bar-value">3,87</div></div>
+                                    <div class="bilan-bar-item"><div class="bilan-bar-label">Avion</div><div class="bilan-bar-track"><div class="bilan-bar-fill transport" style="width:20.5%"></div></div><div class="bilan-bar-value">1,30</div></div>
+                                    <div class="bilan-bar-item"><div class="bilan-bar-label">Achats</div><div class="bilan-bar-track"><div class="bilan-bar-fill achats" style="width:6.2%"></div></div><div class="bilan-bar-value">0,39</div></div>
+                                    <div class="bilan-bar-item"><div class="bilan-bar-label">Électricité</div><div class="bilan-bar-track"><div class="bilan-bar-fill elec" style="width:4.3%"></div></div><div class="bilan-bar-value">0,27</div></div>
+                                    <div class="bilan-bar-item"><div class="bilan-bar-label">Train</div><div class="bilan-bar-track"><div class="bilan-bar-fill elec" style="width:4.1%"></div></div><div class="bilan-bar-value">0,26</div></div>
+                                    <div class="bilan-bar-item"><div class="bilan-bar-label">Télétravail</div><div class="bilan-bar-track"><div class="bilan-bar-fill teletravail" style="width:3.9%"></div></div><div class="bilan-bar-value">0,25</div></div>
+                                </div>
+                                <p class="bilan-note" style="margin-top:1rem">L'avion n'est jamais notre choix de transport par défaut — il n'a été utilisé qu'en cas d'extrême urgence. Suppression totale prévue dès 2027.</p>
+                            </div>
+                            <!-- Pie chart: km by mode -->
+                            <div>
+                                <h3 style="font-family:'Outfit',sans-serif;font-size:0.95rem;font-weight:700;color:var(--deep);margin-bottom:1rem">Répartition des km parcourus</h3>
+                                <div class="bilan-pie">
+                                    <svg viewBox="0 0 200 200">
+                                        <!-- Train: 60.6% = 218.2° -->
+                                        <circle cx="100" cy="100" r="80" fill="none" stroke="var(--primary-light)" stroke-width="32" stroke-dasharray="304.7 503.0" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
+                                        <!-- Voiture: 29.5% = 106.2° -->
+                                        <circle cx="100" cy="100" r="80" fill="none" stroke="var(--primary)" stroke-width="32" stroke-dasharray="148.1 503.0" stroke-dashoffset="-304.7" transform="rotate(-90 100 100)"/>
+                                        <!-- Avion: 9.9% = 35.6° -->
+                                        <circle cx="100" cy="100" r="80" fill="none" stroke="var(--accent)" stroke-width="32" stroke-dasharray="49.8 503.0" stroke-dashoffset="-452.8" transform="rotate(-90 100 100)"/>
+                                        <!-- Center text -->
+                                        <text x="100" y="95" text-anchor="middle" font-family="Outfit,sans-serif" font-size="22" font-weight="800" fill="var(--deep)">61%</text>
+                                        <text x="100" y="113" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="10" fill="var(--text-light)">en train</text>
+                                    </svg>
+                                    <div class="bilan-pie-legend">
+                                        <div class="bilan-pie-item"><div class="bilan-pie-dot" style="background:var(--primary-light)"></div> Train — 43 660 km (60,6 %)</div>
+                                        <div class="bilan-pie-item"><div class="bilan-pie-dot" style="background:var(--primary)"></div> Voiture — 21 240 km (29,5 %)</div>
+                                        <div class="bilan-pie-item"><div class="bilan-pie-dot" style="background:var(--accent)"></div> Avion — 7 140 km (9,9 %)</div>
+                                    </div>
+                                </div>
+                                <p class="bilan-note" style="margin-top:1rem">La majorité de nos déplacements est effectuée en train. La voiture reste nécessaire pour le transport de matériel analytique volumineux (HPLC, GC-MS) — chaque trajet combine livraison et récupération d'instruments.</p>
+                            </div>
                         </div>
-                        <p class="bilan-note">Malgré 61 % des km parcourus en train, la voiture reste le 1er poste d'émissions en raison du transport de matériel analytique (HPLC, GC-MS). Chaque trajet sert à la fois à livrer du matériel reconditionné et à récupérer des instruments en fin de vie — principe de non-circulation à vide.</p>
                     </div>
                 </div>
             </div>
