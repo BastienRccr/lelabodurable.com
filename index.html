@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
     <style>
         :root {
             --deep: #0f3d4f;
@@ -198,6 +199,11 @@
         .bilan-bar-fill.teletravail{background:var(--accent)}
         .bilan-bar-fill.achats{background:#6b9ea8}
         .bilan-note{font-size:0.88rem;color:var(--text-mid);line-height:1.65;margin-top:1.25rem;max-width:600px}
+        .bilan-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:center}
+        .bilan-chart-wrap{display:flex;flex-direction:column;align-items:center;gap:1rem}
+        .bilan-chart-wrap canvas{max-width:280px;max-height:280px}
+        .bilan-chart-title{font-size:0.82rem;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:0.06em;text-align:center}
+        @media(max-width:900px){.bilan-detail-grid{grid-template-columns:1fr}}
 
         /* CTA */
         .cta-section{background:var(--tint-warm)}
@@ -512,15 +518,21 @@
                 </button>
                 <div class="bilan-detail" id="bilanDetail">
                     <div class="bilan-detail-inner">
-                        <div class="bilan-breakdown">
-                            <div class="bilan-bar-item"><div class="bilan-bar-label">Voiture</div><div class="bilan-bar-track"><div class="bilan-bar-fill transport" style="width:61%">3,87 tCO₂e</div></div></div>
-                            <div class="bilan-bar-item"><div class="bilan-bar-label">Avion</div><div class="bilan-bar-track"><div class="bilan-bar-fill transport" style="width:20.5%">1,30</div></div></div>
-                            <div class="bilan-bar-item"><div class="bilan-bar-label">Achats</div><div class="bilan-bar-track"><div class="bilan-bar-fill achats" style="width:6.2%">0,39</div></div></div>
-                            <div class="bilan-bar-item"><div class="bilan-bar-label">Électricité</div><div class="bilan-bar-track"><div class="bilan-bar-fill elec" style="width:4.3%">0,27</div></div></div>
-                            <div class="bilan-bar-item"><div class="bilan-bar-label">Train</div><div class="bilan-bar-track"><div class="bilan-bar-fill elec" style="width:4.1%">0,26</div></div></div>
-                            <div class="bilan-bar-item"><div class="bilan-bar-label">Télétravail</div><div class="bilan-bar-track"><div class="bilan-bar-fill teletravail" style="width:3.9%">0,25</div></div></div>
+                        <div class="bilan-detail-grid">
+                            <div class="bilan-breakdown">
+                                <div class="bilan-bar-item"><div class="bilan-bar-label">Voiture</div><div class="bilan-bar-track"><div class="bilan-bar-fill transport" style="width:61%">3,87 tCO₂e</div></div></div>
+                                <div class="bilan-bar-item"><div class="bilan-bar-label">Avion</div><div class="bilan-bar-track"><div class="bilan-bar-fill transport" style="width:20.5%">1,30</div></div></div>
+                                <div class="bilan-bar-item"><div class="bilan-bar-label">Achats</div><div class="bilan-bar-track"><div class="bilan-bar-fill achats" style="width:6.2%">0,39</div></div></div>
+                                <div class="bilan-bar-item"><div class="bilan-bar-label">Électricité</div><div class="bilan-bar-track"><div class="bilan-bar-fill elec" style="width:4.3%">0,27</div></div></div>
+                                <div class="bilan-bar-item"><div class="bilan-bar-label">Train</div><div class="bilan-bar-track"><div class="bilan-bar-fill elec" style="width:4.1%">0,26</div></div></div>
+                                <div class="bilan-bar-item"><div class="bilan-bar-label">Télétravail</div><div class="bilan-bar-track"><div class="bilan-bar-fill teletravail" style="width:3.9%">0,25</div></div></div>
+                                <p class="bilan-note">Malgré 61 % des km parcourus en train, la voiture reste le 1er poste d'émissions en raison du transport de matériel analytique (HPLC, GC-MS). Chaque trajet sert à la fois à livrer du matériel reconditionné et à récupérer des instruments en fin de vie — principe de non-circulation à vide.</p>
+                            </div>
+                            <div class="bilan-chart-wrap">
+                                <div class="bilan-chart-title">Répartition des émissions</div>
+                                <canvas id="gesChart" aria-label="Répartition des émissions GES 2025"></canvas>
+                            </div>
                         </div>
-                        <p class="bilan-note">Malgré 61 % des km parcourus en train, la voiture reste le 1er poste d'émissions en raison du transport de matériel analytique (HPLC, GC-MS). Chaque trajet sert à la fois à livrer du matériel reconditionné et à récupérer des instruments en fin de vie — principe de non-circulation à vide.</p>
                     </div>
                 </div>
             </div>
@@ -605,12 +617,50 @@
 
         // Bilan GES toggle
         const bilanBtn=document.getElementById('bilanToggle'),bilanDetail=document.getElementById('bilanDetail');
+        let gesChartInstance=null;
         bilanBtn.addEventListener('click',()=>{
             const isOpen=bilanBtn.classList.contains('open');
             if(isOpen){
                 bilanBtn.classList.remove('open');bilanDetail.style.maxHeight=null;bilanBtn.textContent='';bilanBtn.innerHTML='Voir le détail par poste <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>';
             }else{
                 bilanBtn.classList.add('open');bilanDetail.style.maxHeight=bilanDetail.scrollHeight+'px';bilanBtn.innerHTML='Masquer le détail <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" style="transform:rotate(180deg)"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>';
+                if(!gesChartInstance){
+                    const ctx=document.getElementById('gesChart').getContext('2d');
+                    gesChartInstance=new Chart(ctx,{
+                        type:'pie',
+                        data:{
+                            labels:['Voiture','Avion','Achats','Électricité','Train','Télétravail'],
+                            datasets:[{
+                                data:[3.87,1.30,0.39,0.27,0.26,0.25],
+                                backgroundColor:['#1a6b7a','#0f3d4f','#6b9ea8','#2a8a9a','#4aabb8','#d4a053'],
+                                borderColor:'#ffffff',
+                                borderWidth:2,
+                                hoverOffset:8
+                            }]
+                        },
+                        options:{
+                            responsive:true,
+                            plugins:{
+                                legend:{
+                                    position:'bottom',
+                                    labels:{
+                                        font:{family:"'Plus Jakarta Sans',sans-serif",size:12},
+                                        color:'#4a5e63',
+                                        padding:12,
+                                        boxWidth:14
+                                    }
+                                },
+                                tooltip:{
+                                    callbacks:{
+                                        label:function(ctx){return ' '+ctx.label+' : '+ctx.parsed.toFixed(2)+' tCO₂e'}
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    // Allow Chart.js to finish rendering before recalculating max-height
+                    setTimeout(()=>{bilanDetail.style.maxHeight=bilanDetail.scrollHeight+'px'},300);
+                }
             }
         });
 
