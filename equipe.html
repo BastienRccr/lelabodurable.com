@@ -234,7 +234,7 @@
             <div class="team-grid">
 
                 <!-- Christophe Pérès -->
-                <div class="team-card fade-up stagger-1" data-cat="instru">
+                <div class="team-card fade-up stagger-1" data-cat="instru dura">
                     <div class="team-photo">
                         <span class="pole-badge">🔬 Instrumentation</span>
                         <img src="assets/team/christophe-peres.png" alt="Christophe Pérès">
@@ -246,6 +246,7 @@
                             <span class="team-tag">GC/LC/MS</span>
                             <span class="team-tag">Cosmétique</span>
                             <span class="team-tag">Reconditionnement</span>
+                            <span class="team-tag">Durabilité</span>
                         </div>
                         <button class="team-bio-toggle">
                             Voir le parcours
@@ -477,7 +478,7 @@
                 btn.classList.add('active');
                 const filter=btn.dataset.filter;
                 document.querySelectorAll('.team-card').forEach(card=>{
-                    if(filter==='all'||card.dataset.cat===filter){
+                    if(filter==='all'||card.dataset.cat.split(' ').includes(filter)){
                         card.style.display='';
                     }else{
                         card.style.display='none';
