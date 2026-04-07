@@ -83,7 +83,8 @@
         .team-photo img{width:85%;height:auto;max-height:95%;object-fit:contain;object-position:bottom center}
 
         /* Pole badge on photo */
-        .pole-badge{position:absolute;top:0.75rem;left:0.75rem;background:var(--white);border:1px solid var(--border);border-radius:100px;padding:0.25rem 0.7rem;font-size:0.7rem;font-weight:600;color:var(--primary);letter-spacing:0.02em;box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:0.3rem}
+        .pole-badges{position:absolute;top:0.75rem;left:0.75rem;display:flex;flex-direction:column;gap:0.4rem}
+        .pole-badge{background:var(--white);border:1px solid var(--border);border-radius:100px;padding:0.25rem 0.7rem;font-size:0.7rem;font-weight:600;color:var(--primary);letter-spacing:0.02em;box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:0.3rem}
 
         .team-body{padding:1.5rem}
         .team-name{font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--deep);margin-bottom:0.15rem}
@@ -236,7 +237,10 @@
                 <!-- Christophe Pérès -->
                 <div class="team-card fade-up stagger-1" data-cat="instru dura">
                     <div class="team-photo">
-                        <span class="pole-badge">🔬 Instrumentation</span>
+                        <div class="pole-badges">
+                            <span class="pole-badge">🔬 Instrumentation</span>
+                            <span class="pole-badge">🌿 Durabilité</span>
+                        </div>
                         <img src="assets/team/christophe-peres.png" alt="Christophe Pérès">
                     </div>
                     <div class="team-body">
@@ -266,7 +270,9 @@
                 <!-- Bastien Raccary -->
                 <div class="team-card fade-up stagger-2" data-cat="dura">
                     <div class="team-photo">
-                        <span class="pole-badge">🌿 Durabilité</span>
+                        <div class="pole-badges">
+                            <span class="pole-badge">🌿 Durabilité</span>
+                        </div>
                         <img src="assets/team/bastien-raccary.png" alt="Bastien Raccary">
                     </div>
                     <div class="team-body">
@@ -293,9 +299,12 @@
                 </div>
 
                 <!-- Clément Truan -->
-                <div class="team-card fade-up stagger-3" data-cat="chemo">
+                <div class="team-card fade-up stagger-3" data-cat="chemo dura">
                     <div class="team-photo">
-                        <span class="pole-badge">💻 Chémo-info</span>
+                        <div class="pole-badges">
+                            <span class="pole-badge">💻 Chémo-info</span>
+                            <span class="pole-badge">🌿 Durabilité</span>
+                        </div>
                         <img src="assets/team/clement-truan.png" alt="Clément Truan">
                     </div>
                     <div class="team-body">
@@ -324,7 +333,9 @@
                 <!-- Xavier Rouessac -->
                 <div class="team-card fade-up stagger-1" data-cat="instru">
                     <div class="team-photo">
-                        <span class="pole-badge">🔬 Support</span>
+                        <div class="pole-badges">
+                            <span class="pole-badge">🔬 Support</span>
+                        </div>
                         <img src="assets/team/xavier-rouessac.png" alt="Xavier Rouessac">
                     </div>
                     <div class="team-body">
@@ -353,7 +364,9 @@
                 <!-- Thomas Vandewattyne -->
                 <div class="team-card fade-up stagger-2" data-cat="chemo">
                     <div class="team-photo">
-                        <span class="pole-badge">💻 Chémo-info</span>
+                        <div class="pole-badges">
+                            <span class="pole-badge">💻 Chémo-info</span>
+                        </div>
                         <img src="assets/team/thomas-vandewattyne.png" alt="Thomas Vandewattyne">
                     </div>
                     <div class="team-body">
