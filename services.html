@@ -123,6 +123,19 @@
         .tool-card h3{font-size:0.95rem;font-weight:600;color:var(--deep);margin-bottom:0.3rem}
         .tool-card p{font-size:0.82rem;color:var(--text-light);line-height:1.45}
 
+        /* ─── CONFIDENTIALITÉ ─── */
+        .confidentiality-section{background:var(--off-white)}
+        .confidentiality-inner{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+        .confidentiality-points{display:flex;flex-direction:column;gap:1rem;margin-top:1.75rem}
+        .confidentiality-point{display:flex;align-items:flex-start;gap:0.9rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem 1.5rem}
+        .confidentiality-point-icon{width:40px;height:40px;background:var(--tint);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+        .confidentiality-point-text{font-size:0.92rem;color:var(--text-mid);line-height:1.6}
+        .confidentiality-callout{background:var(--primary);border-radius:var(--radius-lg);padding:2.5rem;color:var(--white);display:flex;flex-direction:column;gap:1.25rem}
+        .confidentiality-callout .callout-icon{font-size:2rem}
+        .confidentiality-callout h3{font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:700;color:var(--white);margin-bottom:0.5rem}
+        .confidentiality-callout p{font-size:0.95rem;color:rgba(255,255,255,0.82);line-height:1.7}
+        @media(max-width:900px){.confidentiality-inner{grid-template-columns:1fr}}
+
         /* ─── CTA BAND ─── */
         .cta-band{background:var(--deep);padding:4rem 2rem;text-align:center}
         .cta-band h2{color:var(--white);margin-bottom:1rem}
@@ -427,6 +440,38 @@
                     <div class="tool-icon">📱</div>
                     <h3>Consolab</h3>
                     <p>Pilotage des consommations du labo</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONFIDENTIALITÉ -->
+    <section class="section confidentiality-section">
+        <div class="section-inner">
+            <div class="confidentiality-inner fade-up">
+                <div>
+                    <div class="section-header" style="margin-bottom:0">
+                        <div class="section-label">Confidentialité</div>
+                        <h2>La confidentialité au cœur de notre méthodologie</h2>
+                        <p class="section-desc">Nos missions nous conduisent à accéder à des informations souvent stratégiques. Nous prenons cet accès très au sérieux et nous engageons à la plus stricte confidentialité.</p>
+                    </div>
+                    <div class="confidentiality-points">
+                        <div class="confidentiality-point">
+                            <div class="confidentiality-point-icon">📄</div>
+                            <p class="confidentiality-point-text">Contrats de confidentialité stricts avec chaque client</p>
+                        </div>
+                        <div class="confidentiality-point">
+                            <div class="confidentiality-point-icon">🔒</div>
+                            <p class="confidentiality-point-text">Nos audits nous amènent à un niveau d'information souvent stratégique — il nous est catégoriquement interdit de réutiliser ces informations</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="confidentiality-callout">
+                    <div class="callout-icon">🛡️</div>
+                    <div>
+                        <h3>Un engagement sans compromis</h3>
+                        <p>La confidentialité n'est pas une simple clause contractuelle : c'est une valeur fondamentale qui guide chacune de nos interventions. Vos données, vos process et vos stratégies restent les vôtres.</p>
+                    </div>
                 </div>
             </div>
         </div>
